@@ -10,6 +10,7 @@ package keychain
 */
 import "C"
 import (
+	"fmt"
 	"os"
 	"unsafe"
 )
@@ -78,20 +79,21 @@ func createAccess(label string, trustedApplications []string) (C.CFTypeRef, erro
 // createTrustedApplication creates a SecTrustedApplicationRef as a CFTypeRef.
 // The returned SecTrustedApplicationRef, if non-nil, must be released via CFRelease.
 func createTrustedApplication(trustedApplication string) (C.CFTypeRef, error) {
-	var trustedApplicationCStr *C.char
-	if trustedApplication != "" {
-		trustedApplicationCStr = C.CString(trustedApplication)
-		defer C.free(unsafe.Pointer(trustedApplicationCStr))
-	}
+	// var trustedApplicationCStr *C.char
+	// if trustedApplication != "" {
+	// 	trustedApplicationCStr = C.CString(trustedApplication)
+	// 	defer C.free(unsafe.Pointer(trustedApplicationCStr))
+	// }
 
-	var trustedApplicationRef C.SecTrustedApplicationRef
-	errCode := C.SecTrustedApplicationCreateFromPath(trustedApplicationCStr, &trustedApplicationRef) //nolint
-	err := checkError(errCode)
-	if err != nil {
-		return 0, err
-	}
+	// var trustedApplicationRef C.SecTrustedApplicationRef
+	// errCode := C.SecTrustedApplicationCreateFromPath(trustedApplicationCStr, &trustedApplicationRef) //nolint
+	// err := checkError(errCode)
+	// if err != nil {
+	// 	return 0, err
+	// }
 
-	return C.CFTypeRef(trustedApplicationRef), nil
+	// return C.CFTypeRef(trustedApplicationRef), nil
+	return 0, fmt.Errorf("SecTrustedApplicationCreateFromPath disabled")
 }
 
 // Access defines whats applications can use the keychain item
